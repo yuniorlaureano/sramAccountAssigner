@@ -1,0 +1,5 @@
+C:\Users\Yunior Laureano\Documents\Visual Studio 2015\Projects\AppFinance\SpaDataMigration.Entity\bin\Debug\SpaDataMigration.Entity.dll
+C:\Users\Yunior Laureano\Documents\Visual Studio 2015\Projects\AppFinance\SpaDataMigration.Entity\bin\Debug\SpaDataMigration.Entity.pdb
+C:\Users\Yunior Laureano\Documents\Visual Studio 2015\Projects\AppFinance\SpaDataMigration.Entity\obj\Debug\AppsFinance.Entity.csprojResolveAssemblyReference.cache
+C:\Users\Yunior Laureano\Documents\Visual Studio 2015\Projects\AppFinance\SpaDataMigration.Entity\obj\Debug\SpaDataMigration.Entity.dll
+C:\Users\Yunior Laureano\Documents\Visual Studio 2015\Projects\AppFinance\SpaDataMigration.Entity\obj\Debug\SpaDataMigration.Entity.pdb

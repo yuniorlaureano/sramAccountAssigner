@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head><meta charset="utf-8" /><title></title><style type="text/css">
+    	table{
+    		 width: 100%; 
+    		 border:solid 1px black;
+    		border-collapse: collapse;
+    	}
+    	
+    	table thead{
+    		background-color: lightgray;
+    	}
+
+    	table thead th{
+    		border:solid 1px black;
+    	}
+
+    	table tbody td{
+    		text-align: center;
+    		border: solid 1px black;
+    	}
+
+    	table tfoot th,td{
+    		text-align: center;;
+    	}
+
+    	span{
+    		font-weight: bold;
+    	}
+ </style></head><body><p>Informarles que ya fue asignado el archivo con <span>{quantity}</span> cuentas a auditar sus grabaciones, cuyas ventas se realizaron: <span>{1}</span>.</p><hr/><dl><dt><span>Supervisor:</span></dt>{2}</dl><hr/><table><thead><tr><th>Nombre</th><th>Estatus</th><th>Fecha de venta</th><th>Cantidad</th></tr></thead><tbody><tr>{3}</tr></tbody><tfoot><tr><th colspan="2"></th><th>Total:</th><td>{4}</td></tr></tfoot></table></body></html>
