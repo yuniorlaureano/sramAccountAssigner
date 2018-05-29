@@ -16,7 +16,7 @@ namespace SramAccountAssigner
     {
         public static void Main(string[] args)
         {
-            Assigner assigner = new Assigner(Country.DOM, ENVVAR.DOM);
+            Assigner assigner = new Assigner(Country.PRI, ENVVAR.PRI);
             DataTable resultset = null;
             string user = string.Empty;
             string auditors = string.Empty;
@@ -35,7 +35,7 @@ namespace SramAccountAssigner
 
                 if (resultset.Rows.Count > 0)
                 {
-                    assignerLogic = new AssignerLogic(resultset, Directory.GetCurrentDirectory() + "\\HtmlMailTemplate\\Assigment.html");
+                    assignerLogic = new AssignerLogic(resultset, AppDomain.CurrentDomain.BaseDirectory + "HtmlMailTemplate\\Assigment.html");
 
                     //string path = assigner.WriteToExcel(resultset, "ASSIGNED", "asigned-accounts", Directory.GetCurrentDirectory() + "\\");
 

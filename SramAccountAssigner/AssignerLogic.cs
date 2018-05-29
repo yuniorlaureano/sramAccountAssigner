@@ -27,7 +27,7 @@ namespace SramAccountAssigner
 
             foreach (DataRow row in Assignent.Rows)
             {
-                html.Append("<tr><td>"+row["USR_NOMBRE"] +"</td><td>"+ row["STATUS"] + "</td><td>"+ row["FECHA_VENTA"] + "</td><td>" + row["CANTIDAD"] + "</td></tr>");
+                html.Append("<tr><td>"+row["USR_NOMBRE"] +"</td><td>"+ row["FECHA_VENTA"] + "</td><td>" + row["CANTIDAD"] + "</td></tr>");
             }
 
             return html;
