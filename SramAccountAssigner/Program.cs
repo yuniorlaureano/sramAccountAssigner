@@ -43,7 +43,7 @@ namespace SramAccountAssigner
                     Console.WriteLine("Sending mails");
 
                     SendNotification(
-                              "Asignación de cuantas automática."
+                              "Asignación de cuentas automática."
                              , assignerLogic.HtmlMailMessageBody()
                              , new List<Attachment>()//{ new Attachment(path) }
                              , MialTo(mailToSend)
@@ -55,7 +55,7 @@ namespace SramAccountAssigner
                 else
                 {
                     SendNotification(
-                         "Asignación de cuantas automática."
+                         "Asignación de cuentas automática."
                         , "No hay cuentas pendientes por asignar."
                         , new List<Attachment>()
                         , MialTo(mailToSend)
@@ -65,8 +65,8 @@ namespace SramAccountAssigner
             catch (Exception except)
             {
                 SendNotification(
-                         "Asignación de cuantas automática-ERROR"
-                        , "Error al asignar las cuentas. Contactara Y.Laureano@caribemedia.com.do. ["+except.Message+"]"
+                         "Asignación de cuentas automática-ERROR"
+                        , "Error al asignar las cuentas. Contactar a: Y.Laureano@caribemedia.com.do. ["+except.Message+"]"
                         ,new List<Attachment>()
                         , MialTo(mailToSend)
                     );
@@ -105,9 +105,10 @@ namespace SramAccountAssigner
             string[] mails = null;
             List<MailAddress> mailTo = new List<MailAddress>();
 
-            if (separatedCommaMails.Contains(","))
+            if (!separatedCommaMails.Contains(","))
             {
                 mailTo.Add(new MailAddress(separatedCommaMails));
+                return mailTo;
             }
 
             mails = separatedCommaMails.Split(',');
