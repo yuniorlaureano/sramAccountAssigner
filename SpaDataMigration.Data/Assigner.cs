@@ -33,10 +33,6 @@ namespace SramAccountAssigner.Data
             this.Envvar = envvar;
         }
 
-        /*
-         --72115 ANYELIS
-         --73168 RAQUEL SENA
-             */
         public DataTable AutoAssign(string userCode, string auditors)
         {
             DataTable resultset = null;

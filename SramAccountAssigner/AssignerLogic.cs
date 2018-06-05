@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Data;
-using System.Configuration;
 
 namespace SramAccountAssigner
 {
@@ -13,12 +10,10 @@ namespace SramAccountAssigner
 
         public int TotalAssigned { get; set; }
         public DataTable Assignent { get; set; }
-        public string TemplatePath { get; set; }
 
-        public AssignerLogic(DataTable assignent, string templatePath)
+        public AssignerLogic(DataTable assignent)
         {
             this.Assignent = assignent;
-            this.TemplatePath = templatePath;
         }
 
         public StringBuilder GetHtml()
@@ -58,21 +53,6 @@ namespace SramAccountAssigner
             date = date.Substring(0, date.Length-1);
 
             return date;
-        }
-
-        public string HtmlMailMessageBody()
-        {
-            MailHelper mailHeler = new MailHelper();
-            List<ParamDictionary> _parameters = new List<ParamDictionary>
-            {
-                new ParamDictionary { Key = "quantity", Value = this.GetTotalAssigned().ToString() },
-                new ParamDictionary { Key = "dates", Value = this.GetSalesDate() },
-                new ParamDictionary { Key = "responsible", Value = ConfigurationManager.AppSettings["RESPONSIBLE_NAME"].ToString() },
-                new ParamDictionary { Key = "htmlcontent", Value = this.GetHtml().ToString() },
-                new ParamDictionary { Key = "total", Value = this.GetTotalAssigned().ToString() }
-            };
-
-            return mailHeler.BuildMessage(this.TemplatePath, _parameters);
         }
     }
 }

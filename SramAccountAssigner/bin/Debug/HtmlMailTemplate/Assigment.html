@@ -35,36 +35,39 @@
     </style>
 </head>
 <body>
-    <h3>Asignación de cuentas PR</h3>
-	<p>
-		Saludos, informarles que ya fue asignado el archivo con <span>{quantity}</span> cuentas a auditar sus grabaciones, cuyas ventas se realizaron: <span>{dates}</span>. 
-	</p>
-	<hr/>
-	<dl>
-		<dt><span>Supervisor:</span></dt>
-		<dd>{responsible}</dd>
-	</dl>
-	<hr/>
-	<table>
-		<thead>
-			<tr>
-				<th>Auditor</th>
-				<th>Fecha de RDV</th>
-				<th>Cantidad</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				{htmlcontent}
-			</tr>
-		</tbody>
-		<tfoot>
-			<tr style="text-align: center;">
-				<th colspan="1"></th>
-				<th>Total:</th>
-				<td>{total}</td>
-			</tr>
-		</tfoot>
-	</table>
+    <h3>Asignación de cuentas {country}</h3>
+    <p>
+        Saludos,
+    </p>
+    <p>
+        Informarles que ya fue asignado el archivo con <span>{quantity}</span> cuentas a auditar sus grabaciones, cuyas ventas se realizaron: <span>{dates}</span>.
+    </p>
+    <hr />
+    <dl>
+        <dt><span>Supervisor:</span></dt>
+        <dd>{responsible}</dd>
+    </dl>
+    <hr />
+    <table>
+        <thead>
+            <tr>
+                <th>Auditor</th>
+                <th>Fecha de RDV</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {htmlcontent}
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr style="text-align: center;">
+                <th colspan="1"></th>
+                <th>Total:</th>
+                <td>{total}</td>
+            </tr>
+        </tfoot>
+    </table>
 </body>
 </html>

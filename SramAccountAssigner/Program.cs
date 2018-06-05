@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SramAccountAssigner.Data;
 using SramAccountAssigner.Entity;
 using System.Data;
 using System.Configuration;
-using System.IO;
 using System.Net.Mail;
 
 namespace SramAccountAssigner
@@ -16,109 +12,90 @@ namespace SramAccountAssigner
     {
         public static void Main(string[] args)
         {
-            Assigner assigner = new Assigner(Country.PRI, ENVVAR.PRI);
+            Country country = (Country) Enum.Parse(typeof(Country), ConfigurationManager.AppSettings["country"].ToString());
+            ENVVAR envar = (ENVVAR) Enum.Parse(typeof(ENVVAR), ConfigurationManager.AppSettings["country"].ToString());
+
+            Assigner assigner = new Assigner(country, envar);
             DataTable resultset = null;
             string user = string.Empty;
             string auditors = string.Empty;
-            string mailToSend = string.Empty;
+            string subject = string.Empty;
             AssignerLogic assignerLogic = null;
+
+            string commaSeparatedMails = ConfigurationManager.AppSettings["Mails_" + country];
+            string fromMail = ConfigurationManager.AppSettings["FromMail"];
+            int smtpPort = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPort"]);
+            string smtpHost = ConfigurationManager.AppSettings["SmtpHost"];
+
+            Common.Helper.MailHelper mailHelper = new Common.Helper.MailHelper();
 
             try
             {
-                user = ConfigurationManager.AppSettings["RESPONSIBLE"].ToString();
-                auditors = ConfigurationManager.AppSettings["AUDITORS"].ToString();
-                mailToSend = ConfigurationManager.AppSettings["MailToSend"].ToString();
-
-               
+                user = ConfigurationManager.AppSettings["RESPONSIBLE_" + country].ToString();
+                auditors = ConfigurationManager.AppSettings["AUDITORS_" + country].ToString();
+                subject = ConfigurationManager.AppSettings["Subject_" + country].ToString();
 
                 resultset = assigner.AutoAssign(user, auditors);
 
                 if (resultset.Rows.Count > 0)
                 {
-                    assignerLogic = new AssignerLogic(resultset, AppDomain.CurrentDomain.BaseDirectory + "HtmlMailTemplate\\Assigment.html");
+                    assignerLogic = new AssignerLogic(resultset);
+
+                    List<Common.Helper.ParamDictionary> parameters = new List<Common.Helper.ParamDictionary>
+                    {
+                        new Common.Helper.ParamDictionary { Key = "quantity", Value = assignerLogic.GetTotalAssigned().ToString() },
+                        new Common.Helper.ParamDictionary { Key = "dates", Value = assignerLogic.GetSalesDate() },
+                        new Common.Helper.ParamDictionary { Key = "responsible", Value = ConfigurationManager.AppSettings["RESPONSIBLE_NAME_" + country].ToString() },
+                        new Common.Helper.ParamDictionary { Key = "country", Value = ConfigurationManager.AppSettings["country_" + country].ToString() },
+                        new Common.Helper.ParamDictionary { Key = "htmlcontent", Value = assignerLogic.GetHtml().ToString() },
+                        new Common.Helper.ParamDictionary { Key = "total", Value = assignerLogic.GetTotalAssigned().ToString() }
+                    };
 
                     //string path = assigner.WriteToExcel(resultset, "ASSIGNED", "asigned-accounts", Directory.GetCurrentDirectory() + "\\");
 
                     Console.WriteLine("-------------------------------");
                     Console.WriteLine("Sending mails");
 
-                    SendNotification(
-                              "Asignación de cuentas automática."
-                             , assignerLogic.HtmlMailMessageBody()
-                             , new List<Attachment>()//{ new Attachment(path) }
-                             , MialTo(mailToSend)
-                             , true
+                    mailHelper.SendMail(
+                            from: fromMail,
+                            subject: subject,
+                            body: mailHelper.BuildMessage(AppDomain.CurrentDomain.BaseDirectory + "HtmlMailTemplate\\Assigment.html", parameters),
+                            smtpCredentials: new SmtpClient(smtpHost, smtpPort),
+                            attachments: new List<Attachment>(),
+                            mails: mailHelper.BuildMailTo(commaSeparatedMails),
+                            isHtml: true,
+                            UseDefaultCredentials: true
                         );
 
                     Console.WriteLine("...........Sending sent..........");
                 }
                 else
                 {
-                    SendNotification(
-                         "Asignación de cuentas automática."
-                        , "No hay cuentas pendientes por asignar."
-                        , new List<Attachment>()
-                        , MialTo(mailToSend)
-                    );
+                    mailHelper.SendMail(
+                            from: fromMail,
+                            subject: subject,
+                            body: "No hay cuentas pendientes por asignar.",
+                            smtpCredentials: new SmtpClient(smtpHost, smtpPort),
+                            attachments: new List<Attachment>(),
+                            mails: mailHelper.BuildMailTo(commaSeparatedMails),
+                            UseDefaultCredentials: true
+                        );
                 }
             }
             catch (Exception except)
             {
-                SendNotification(
-                         "Asignación de cuentas automática-ERROR"
-                        , "Error al asignar las cuentas. Contactar a: Y.Laureano@caribemedia.com.do. ["+except.Message+"]"
-                        ,new List<Attachment>()
-                        , MialTo(mailToSend)
-                    );
+                mailHelper.SendMail(
+                            from: fromMail,
+                            subject: subject + "-ERROR",
+                            body: "Error al asignar las cuentas. Contactar a: Y.Laureano@caribemedia.com.do. [" + except.Message + "]",
+                            smtpCredentials: new SmtpClient(smtpHost, smtpPort),
+                            attachments: new List<Attachment>(),
+                            mails: mailHelper.BuildMailTo(commaSeparatedMails),
+                            UseDefaultCredentials: true
+                        );
+
                 throw except;
             }
-            
-        }
-
-        public static void SendNotification(string subject, string body, List<Attachment> attachments, List<MailAddress> mails, bool isHtml = false)
-        {
-
-            MailMessage message = new MailMessage();
-            message.From = new MailAddress("Desarrollo/sistemas@paginasamarillas.com.do");
-
-            foreach (MailAddress ml in mails)
-                message.To.Add(ml);
-
-            message.Subject = subject;
-            message.BodyEncoding = System.Text.Encoding.UTF8;
-            message.Priority = MailPriority.Normal;
-            message.Body = body;
-            message.IsBodyHtml = isHtml;
-
-            foreach (Attachment attch in attachments)
-                message.Attachments.Add(attch);
-
-            SmtpClient server = new SmtpClient("172.27.136.11", 25);
-            server.UseDefaultCredentials = true;
-            server.DeliveryMethod = SmtpDeliveryMethod.Network;
-            server.EnableSsl = false;
-            server.Send(message);
-        }
-
-        public static List<MailAddress> MialTo(string separatedCommaMails)
-        {
-            string[] mails = null;
-            List<MailAddress> mailTo = new List<MailAddress>();
-
-            if (!separatedCommaMails.Contains(","))
-            {
-                mailTo.Add(new MailAddress(separatedCommaMails));
-                return mailTo;
-            }
-
-            mails = separatedCommaMails.Split(',');
-
-            foreach (string _mailto in mails)
-            {
-                mailTo.Add(new MailAddress(_mailto));
-            }
-
-            return mailTo;
         }
     }
 }

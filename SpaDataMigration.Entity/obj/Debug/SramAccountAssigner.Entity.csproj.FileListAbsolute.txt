@@ -1,4 +1,5 @@
 C:\Users\Yunior Laureano\Documents\Visual Studio 2015\Projects\SramAccountAssigner\SpaDataMigration.Entity\bin\Debug\SpaDataMigration.Entity.dll
 C:\Users\Yunior Laureano\Documents\Visual Studio 2015\Projects\SramAccountAssigner\SpaDataMigration.Entity\bin\Debug\SpaDataMigration.Entity.pdb
+C:\Users\Yunior Laureano\Documents\Visual Studio 2015\Projects\SramAccountAssigner\SpaDataMigration.Entity\obj\Debug\SramAccountAssigner.Entity.csprojResolveAssemblyReference.cache
 C:\Users\Yunior Laureano\Documents\Visual Studio 2015\Projects\SramAccountAssigner\SpaDataMigration.Entity\obj\Debug\SpaDataMigration.Entity.dll
 C:\Users\Yunior Laureano\Documents\Visual Studio 2015\Projects\SramAccountAssigner\SpaDataMigration.Entity\obj\Debug\SpaDataMigration.Entity.pdb

@@ -47,8 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssignerLogic.cs" />
-    <Compile Include="MailHelper.cs" />
-    <Compile Include="ParamDictionary.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -58,6 +56,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SRAM.Report.MailSender\Commo.Helper\Common.Helper.csproj">
+      <Project>{7378322d-576c-407a-88ea-6c7f8760f293}</Project>
+      <Name>Common.Helper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SpaDataMigration.Data\SramAccountAssigner.Data.csproj">
       <Project>{0add9a9e-e864-49ca-973e-6d5e5cd700ff}</Project>
       <Name>SramAccountAssigner.Data</Name>
