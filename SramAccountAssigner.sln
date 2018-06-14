@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SramAccountAssigner.Data", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SramAccountAssigner.Entity", "SpaDataMigration.Entity\SramAccountAssigner.Entity.csproj", "{1FC415C4-6E98-4012-90E4-583AE99842B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Helper", "..\SRAM.Report.MailSender\Commo.Helper\Common.Helper.csproj", "{7378322D-576C-407A-88EA-6C7F8760F293}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Helper", "Common.Helper\Common.Helper.csproj", "{7378322D-576C-407A-88EA-6C7F8760F293}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

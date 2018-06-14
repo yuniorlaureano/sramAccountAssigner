@@ -1,0 +1,5 @@
+C:\Users\Yunior Laureano\Documents\Visual Studio 2015\Projects\SRAM.Report.MailSender\Commo.Helper\bin\Debug\Commo.Helper.dll
+C:\Users\Yunior Laureano\Documents\Visual Studio 2015\Projects\SRAM.Report.MailSender\Commo.Helper\bin\Debug\Commo.Helper.pdb
+C:\Users\Yunior Laureano\Documents\Visual Studio 2015\Projects\SRAM.Report.MailSender\Commo.Helper\obj\Debug\Commo.Helper.csprojResolveAssemblyReference.cache
+C:\Users\Yunior Laureano\Documents\Visual Studio 2015\Projects\SRAM.Report.MailSender\Commo.Helper\obj\Debug\Commo.Helper.dll
+C:\Users\Yunior Laureano\Documents\Visual Studio 2015\Projects\SRAM.Report.MailSender\Commo.Helper\obj\Debug\Commo.Helper.pdb

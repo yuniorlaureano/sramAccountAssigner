@@ -34,6 +34,7 @@ namespace SramAccountAssigner
                 user = ConfigurationManager.AppSettings["RESPONSIBLE_" + country].ToString();
                 auditors = ConfigurationManager.AppSettings["AUDITORS_" + country].ToString();
                 subject = ConfigurationManager.AppSettings["Subject_" + country].ToString();
+                
 
                 resultset = assigner.AutoAssign(user, auditors);
 
@@ -51,7 +52,7 @@ namespace SramAccountAssigner
                         new Common.Helper.ParamDictionary { Key = "total", Value = assignerLogic.GetTotalAssigned().ToString() }
                     };
 
-                    //string path = assigner.WriteToExcel(resultset, "ASSIGNED", "asigned-accounts", Directory.GetCurrentDirectory() + "\\");
+                    subject = string.Format(subject, assignerLogic.GetSalesDate());
 
                     Console.WriteLine("-------------------------------");
                     Console.WriteLine("Sending mails");

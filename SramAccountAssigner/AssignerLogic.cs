@@ -37,7 +37,7 @@ namespace SramAccountAssigner
         public string GetSalesDate()
         {
             string date = string.Empty;
-
+            int lastIndexOfComma = 0;
             string []dates = this.Assignent.AsEnumerable().Select(x => x.Field<string>("FECHA_VENTA")).Distinct().ToArray();
             
             foreach (string item in dates)
@@ -51,6 +51,13 @@ namespace SramAccountAssigner
             }
 
             date = date.Substring(0, date.Length-1);
+
+            lastIndexOfComma = date.LastIndexOf(",");
+
+            if (lastIndexOfComma > 0)
+            {
+                date = date.Substring(0, lastIndexOfComma) + " y " + date.Substring(lastIndexOfComma + 1);
+            }
 
             return date;
         }
